@@ -46,7 +46,7 @@ const pinInputContainerRef = useTemplateRef('pinInputContainerRef');
 const modalConfig = computed<TwoFactorConfigContent>(() => {
     if (props.twoFactorEnabled) {
         return {
-            title: 'Two-Factor Authentication Enabled',
+            title: 'Two-factor authentication enabled',
             description:
                 'Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.',
             buttonText: 'Close',
@@ -55,14 +55,14 @@ const modalConfig = computed<TwoFactorConfigContent>(() => {
 
     if (showVerificationStep.value) {
         return {
-            title: 'Verify Authentication Code',
+            title: 'Verify authentication code',
             description: 'Enter the 6-digit code from your authenticator app',
             buttonText: 'Continue',
         };
     }
 
     return {
-        title: 'Enable Two-Factor Authentication',
+        title: 'Enable two-factor authentication',
         description:
             'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app',
         buttonText: 'Continue',
@@ -238,6 +238,7 @@ watch(
                 <template v-else>
                     <Form
                         v-bind="confirm.form()"
+                        error-bag="confirmTwoFactorAuthentication"
                         reset-on-error
                         @finish="code = ''"
                         @success="isOpen = false"
@@ -265,12 +266,7 @@ watch(
                                         />
                                     </InputOTPGroup>
                                 </InputOTP>
-                                <InputError
-                                    :message="
-                                        errors?.confirmTwoFactorAuthentication
-                                            ?.code
-                                    "
-                                />
+                                <InputError :message="errors?.code" />
                             </div>
 
                             <div class="flex w-full items-center space-x-5">

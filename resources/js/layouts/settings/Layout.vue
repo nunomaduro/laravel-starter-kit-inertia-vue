@@ -6,10 +6,10 @@ import { Separator } from '@/components/ui/separator';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
 import { toUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
-import { edit as editPassword } from '@/routes/password';
-import { show } from '@/routes/two-factor';
 import { edit as editProfile } from '@/routes/user-profile';
-import { type NavItem } from '@/types';
+import { edit as editPassword } from '@/routes/password';
+import { show as showTwoFactorAuth } from '@/routes/two-factor';
+import type { NavItem } from '@/types';
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -22,7 +22,7 @@ const sidebarNavItems: NavItem[] = [
     },
     {
         title: 'Two-Factor Auth',
-        href: show(),
+        href: showTwoFactorAuth(),
     },
     {
         title: 'Appearance',
@@ -30,7 +30,7 @@ const sidebarNavItems: NavItem[] = [
     },
 ];
 
-const { isCurrentUrl } = useCurrentUrl();
+const { isCurrentOrParentUrl } = useCurrentUrl();
 </script>
 
 <template>
@@ -52,7 +52,7 @@ const { isCurrentUrl } = useCurrentUrl();
                         variant="ghost"
                         :class="[
                             'w-full justify-start',
-                            { 'bg-muted': isCurrentUrl(item.href) },
+                            { 'bg-muted': isCurrentOrParentUrl(item.href) },
                         ]"
                         as-child
                     >

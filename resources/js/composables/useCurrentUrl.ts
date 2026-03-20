@@ -9,6 +9,11 @@ export type UseCurrentUrlReturn = {
     isCurrentUrl: (
         urlToCheck: NonNullable<InertiaLinkProps['href']>,
         currentUrl?: string,
+        startsWith?: boolean,
+    ) => boolean;
+    isCurrentOrParentUrl: (
+        urlToCheck: NonNullable<InertiaLinkProps['href']>,
+        currentUrl?: string,
     ) => boolean;
     whenCurrentUrl: <T, F = null>(
         urlToCheck: NonNullable<InertiaLinkProps['href']>,
@@ -19,28 +24,45 @@ export type UseCurrentUrlReturn = {
 
 const page = usePage();
 const currentUrlReactive = computed(
-    () => new URL(page.url, window?.location.origin).pathname,
+    () =>
+        new URL(
+            page.url,
+            typeof window !== 'undefined'
+                ? window.location.origin
+                : 'http://localhost',
+        ).pathname,
 );
 
 export function useCurrentUrl(): UseCurrentUrlReturn {
     function isCurrentUrl(
         urlToCheck: NonNullable<InertiaLinkProps['href']>,
         currentUrl?: string,
+        startsWith: boolean = false,
     ) {
         const urlToCompare = currentUrl ?? currentUrlReactive.value;
         const urlString = toUrl(urlToCheck);
 
+        const comparePath = (path: string): boolean =>
+            startsWith ? urlToCompare.startsWith(path) : path === urlToCompare;
+
         if (!urlString.startsWith('http')) {
-            return urlString === urlToCompare;
+            return comparePath(urlString);
         }
 
         try {
             const absoluteUrl = new URL(urlString);
 
-            return absoluteUrl.pathname === urlToCompare;
+            return comparePath(absoluteUrl.pathname);
         } catch {
             return false;
         }
+    }
+
+    function isCurrentOrParentUrl(
+        urlToCheck: NonNullable<InertiaLinkProps['href']>,
+        currentUrl?: string,
+    ) {
+        return isCurrentUrl(urlToCheck, currentUrl, true);
     }
 
     function whenCurrentUrl(
@@ -54,6 +76,7 @@ export function useCurrentUrl(): UseCurrentUrlReturn {
     return {
         currentUrl: readonly(currentUrlReactive),
         isCurrentUrl,
+        isCurrentOrParentUrl,
         whenCurrentUrl,
     };
 }

@@ -3,27 +3,27 @@ import { Form, Head } from '@inertiajs/vue3';
 import PasswordController from '@/actions/App/Http/Controllers/UserPasswordController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import PasswordInput from '@/components/PasswordInput.vue';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { edit } from '@/routes/password';
-import { type BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem } from '@/types';
 
-const breadcrumbItems: BreadcrumbItem[] = [
+const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Password settings',
-        href: edit().url,
+        href: edit(),
     },
 ];
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
+    <AppLayout :breadcrumbs="breadcrumbs">
         <Head title="Password settings" />
 
-        <h1 class="sr-only">Password Settings</h1>
+        <h1 class="sr-only">Password settings</h1>
 
         <SettingsLayout>
             <div class="space-y-6">
@@ -49,10 +49,9 @@ const breadcrumbItems: BreadcrumbItem[] = [
                 >
                     <div class="grid gap-2">
                         <Label for="current_password">Current password</Label>
-                        <Input
+                        <PasswordInput
                             id="current_password"
                             name="current_password"
-                            type="password"
                             class="mt-1 block w-full"
                             autocomplete="current-password"
                             placeholder="Current password"
@@ -62,10 +61,9 @@ const breadcrumbItems: BreadcrumbItem[] = [
 
                     <div class="grid gap-2">
                         <Label for="password">New password</Label>
-                        <Input
+                        <PasswordInput
                             id="password"
                             name="password"
-                            type="password"
                             class="mt-1 block w-full"
                             autocomplete="new-password"
                             placeholder="New password"
@@ -77,10 +75,9 @@ const breadcrumbItems: BreadcrumbItem[] = [
                         <Label for="password_confirmation"
                             >Confirm password</Label
                         >
-                        <Input
+                        <PasswordInput
                             id="password_confirmation"
                             name="password_confirmation"
-                            type="password"
                             class="mt-1 block w-full"
                             autocomplete="new-password"
                             placeholder="Confirm password"
@@ -92,8 +89,9 @@ const breadcrumbItems: BreadcrumbItem[] = [
                         <Button
                             :disabled="processing"
                             data-test="update-password-button"
-                            >Save password</Button
                         >
+                            Save password
+                        </Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"
