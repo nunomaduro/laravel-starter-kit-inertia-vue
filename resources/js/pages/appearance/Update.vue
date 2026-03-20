@@ -5,12 +5,12 @@ import Heading from '@/components/Heading.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { edit } from '@/routes/appearance';
-import { type BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem } from '@/types';
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
         title: 'Appearance settings',
-        href: edit().url,
+        href: edit(),
     },
 ];
 </script>
@@ -19,7 +19,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
     <AppLayout :breadcrumbs="breadcrumbItems">
         <Head title="Appearance settings" />
 
-        <h1 class="sr-only">Appearance Settings</h1>
+        <h1 class="sr-only">Appearance settings</h1>
 
         <SettingsLayout>
             <div class="space-y-6">
