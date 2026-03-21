@@ -2,7 +2,6 @@ import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
-import type { Plugin } from 'vite';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
@@ -58,7 +57,7 @@ export default defineConfig({
         tailwindcss(),
         wayfinder({
             formVariants: true,
-        }) as Plugin,
+        }),
         vue({
             template: {
                 transformAssetUrls: {
@@ -66,6 +65,6 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
-        }) as Plugin,
+        }),
     ],
 });
