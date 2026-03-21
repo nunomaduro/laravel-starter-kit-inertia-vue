@@ -14,6 +14,7 @@ type Props = {
     breadcrumbs: BreadcrumbItemType[];
 };
 
+
 defineProps<Props>();
 </script>
 

@@ -18,11 +18,13 @@ type Props = {
     twoFactorEnabled?: boolean;
 };
 
+
 withDefaults(defineProps<Props>(), {
     canManageTwoFactor: false,
     requiresConfirmation: false,
     twoFactorEnabled: false,
 });
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -31,8 +33,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+
 const { hasSetupData, clearTwoFactorAuthData } = useTwoFactorAuth();
 const showSetupModal = ref<boolean>(false);
+
 
 onUnmounted(() => {
     clearTwoFactorAuthData();

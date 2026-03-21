@@ -18,18 +18,22 @@ const { recoveryCodesList, fetchRecoveryCodes, errors } = useTwoFactorAuth();
 const isRecoveryCodesVisible = ref<boolean>(false);
 const recoveryCodeSectionRef = useTemplateRef('recoveryCodeSectionRef');
 
+
 const toggleRecoveryCodesVisibility = async () => {
     if (!isRecoveryCodesVisible.value && !recoveryCodesList.value.length) {
         await fetchRecoveryCodes();
     }
 
+
     isRecoveryCodesVisible.value = !isRecoveryCodesVisible.value;
+
 
     if (isRecoveryCodesVisible.value) {
         await nextTick();
         recoveryCodeSectionRef.value?.scrollIntoView({ behavior: 'smooth' });
     }
 };
+
 
 onMounted(async () => {
     if (!recoveryCodesList.value.length) {

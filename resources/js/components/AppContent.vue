@@ -8,6 +8,7 @@ type Props = {
     class?: string;
 };
 
+
 const props = withDefaults(defineProps<Props>(), {
     variant: 'sidebar',
 });

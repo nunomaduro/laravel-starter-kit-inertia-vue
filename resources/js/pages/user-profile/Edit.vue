@@ -19,7 +19,9 @@ type Props = {
     status?: string;
 };
 
+
 defineProps<Props>();
+
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -27,6 +29,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
         href: edit(),
     },
 ];
+
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);

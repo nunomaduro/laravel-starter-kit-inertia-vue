@@ -2,11 +2,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "build:ssr": "vite build && vite build --ssr",
-        "dev": "vite",
-        "lint": "oxlint --fix && prettier --write resources/",
-        "test:lint": "oxlint && prettier --check resources/",
+        "build": "vp build",
+        "build:ssr": "vp build && vp build --ssr",
+        "dev": "vp dev",
+        "lint": "NODE_OPTIONS='--experimental-strip-types' vp fmt resources/ && NODE_OPTIONS='--experimental-strip-types' vp lint --fix",
+        "test:lint": "NODE_OPTIONS='--experimental-strip-types' vp fmt --check resources/ && NODE_OPTIONS='--experimental-strip-types' vp lint",
         "test:types": "tsc --noEmit"
     },
     "devDependencies": {
@@ -16,13 +16,10 @@
         "@vitejs/plugin-vue": "^6.0.5",
         "concurrently": "^9.2.1",
         "npm-check-updates": "^19.6.5",
-        "oxlint": "^1.56.0",
         "playwright": "^1.58.2",
-        "prettier": "^3.8.1",
-        "prettier-plugin-organize-imports": "^4.3.0",
-        "prettier-plugin-tailwindcss": "^0.7.2",
         "typescript": "^5.9.3",
-        "vite": "^8.0.1",
+        "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+        "vite-plus": "latest",
         "vue-tsc": "^3.2.6"
     },
     "dependencies": {

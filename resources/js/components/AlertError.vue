@@ -8,9 +8,11 @@ type Props = {
     title?: string;
 };
 
+
 const props = withDefaults(defineProps<Props>(), {
     title: 'Something went wrong.',
 });
+
 
 const uniqueErrors = computed(() => Array.from(new Set(props.errors)));
 </script>

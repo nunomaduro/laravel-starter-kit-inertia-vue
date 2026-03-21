@@ -9,11 +9,14 @@ type Props = {
     showEmail?: boolean;
 };
 
+
 const props = withDefaults(defineProps<Props>(), {
     showEmail: false,
 });
 
+
 const { getInitials } = useInitials();
+
 
 // Compute whether we should show the avatar image
 const showAvatar = computed(
