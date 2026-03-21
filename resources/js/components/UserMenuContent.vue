@@ -16,9 +16,11 @@ type Props = {
     user: User;
 };
 
+
 const handleLogout = () => {
     router.flushAll();
 };
+
 
 defineProps<Props>();
 </script>

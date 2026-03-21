@@ -7,9 +7,11 @@ type Props = {
     variant?: AppVariant;
 };
 
+
 withDefaults(defineProps<Props>(), {
     variant: 'sidebar',
 });
+
 
 const isOpen = usePage().props.sidebarOpen;
 </script>

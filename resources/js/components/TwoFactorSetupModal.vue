@@ -29,19 +29,25 @@ type Props = {
     twoFactorEnabled: boolean;
 };
 
+
 const { resolvedAppearance } = useAppearance();
+
 
 const props = defineProps<Props>();
 const isOpen = defineModel<boolean>('isOpen');
+
 
 const { copy, copied } = useClipboard();
 const { qrCodeSvg, manualSetupKey, clearSetupData, fetchSetupData, errors } =
     useTwoFactorAuth();
 
+
 const showVerificationStep = ref(false);
 const code = ref<string>('');
 
+
 const pinInputContainerRef = useTemplateRef('pinInputContainerRef');
+
 
 const modalConfig = computed<TwoFactorConfigContent>(() => {
     if (props.twoFactorEnabled) {
@@ -69,29 +75,36 @@ const modalConfig = computed<TwoFactorConfigContent>(() => {
     };
 });
 
+
 const handleModalNextStep = () => {
     if (props.requiresConfirmation) {
         showVerificationStep.value = true;
+
 
         nextTick(() => {
             pinInputContainerRef.value?.querySelector('input')?.focus();
         });
 
+
         return;
     }
+
 
     clearSetupData();
     isOpen.value = false;
 };
+
 
 const resetModalState = () => {
     if (props.twoFactorEnabled) {
         clearSetupData();
     }
 
+
     showVerificationStep.value = false;
     code.value = '';
 };
+
 
 watch(
     () => isOpen.value,
@@ -100,6 +113,7 @@ watch(
             resetModalState();
             return;
         }
+
 
         if (!qrCodeSvg.value) {
             await fetchSetupData();

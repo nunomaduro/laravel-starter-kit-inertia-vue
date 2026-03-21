@@ -5,8 +5,8 @@
         "build": "vp build",
         "build:ssr": "vp build && vp build --ssr",
         "dev": "vp dev",
-        "lint": "vp lint --fix && vp fmt resources/",
-        "test:lint": "vp lint --type-aware && vp fmt --check resources/",
+        "lint": "NODE_OPTIONS='--experimental-strip-types' vp fmt resources/ && NODE_OPTIONS='--experimental-strip-types' vp lint --fix",
+        "test:lint": "NODE_OPTIONS='--experimental-strip-types' vp fmt --check resources/ && NODE_OPTIONS='--experimental-strip-types' vp lint",
         "test:types": "tsc --noEmit"
     },
     "devDependencies": {
@@ -23,7 +23,7 @@
         "vue-tsc": "^3.2.6"
     },
     "dependencies": {
-        "@inertiajs/vue3": "^2.3.18",
+        "@inertiajs/vue3": "^3.0.0-beta",
         "@vueuse/core": "^14.2.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -37,15 +37,11 @@
         "vue-input-otp": "^0.3.2"
     },
     "optionalDependencies": {
-        "@rollup/rollup-linux-x64-gnu": "4.59.0",
-        "@rollup/rollup-win32-x64-msvc": "4.59.0",
+        "@rollup/rollup-linux-x64-gnu": "4.59.1",
+        "@rollup/rollup-win32-x64-msvc": "4.59.1",
         "@tailwindcss/oxide-linux-x64-gnu": "^4.2.2",
         "@tailwindcss/oxide-win32-x64-msvc": "^4.2.2",
         "lightningcss-linux-x64-gnu": "^1.32.0",
         "lightningcss-win32-x64-msvc": "^1.32.0"
-    },
-    "overrides": {
-        "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-        "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
     }
 }

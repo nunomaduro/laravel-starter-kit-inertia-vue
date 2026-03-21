@@ -14,6 +14,7 @@ type Props = {
     class?: string;
 };
 
+
 defineProps<Props>();
 </script>
 

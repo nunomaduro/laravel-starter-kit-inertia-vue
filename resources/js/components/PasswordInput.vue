@@ -7,12 +7,15 @@ import { cn } from '@/lib/utils';
 
 defineOptions({ inheritAttrs: false });
 
+
 const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
 
+
 const showPassword = ref(false);
 const inputRef = useTemplateRef('inputRef');
+
 
 defineExpose({
     $el: inputRef,
