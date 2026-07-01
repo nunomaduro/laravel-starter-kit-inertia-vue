@@ -185,3 +185,29 @@ it('redirects authenticated users away from registration', function (): void {
 
     $response->assertRedirectToRoute('dashboard');
 });
+
+it('throttles registration attempts', function (): void {
+    foreach (range(1, 6) as $ignored) {
+        $this->postJson(route('register.store'), []);
+    }
+
+    $this->postJson(route('register.store'), [])->assertStatus(429);
+});
+
+it('throttles account deletion attempts', function (): void {
+    $user = User::factory()->create([
+        'password' => Hash::make('password'),
+    ]);
+
+    foreach (range(1, 6) as $ignored) {
+        $this->actingAs($user)->deleteJson(route('user.destroy'), [
+            'password' => 'wrong-password',
+        ]);
+    }
+
+    $this->actingAs($user)
+        ->deleteJson(route('user.destroy'), ['password' => 'wrong-password'])
+        ->assertStatus(429);
+
+    expect($user->fresh())->not->toBeNull();
+});

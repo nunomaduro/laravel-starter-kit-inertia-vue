@@ -66,6 +66,15 @@ it('requires valid email format', function (): void {
         ->assertSessionHasErrors('email');
 });
 
+it('throttles forgot-password requests', function (): void {
+    foreach (range(1, 6) as $ignored) {
+        $this->postJson(route('password.email'), ['email' => 'test@example.com']);
+    }
+
+    $this->postJson(route('password.email'), ['email' => 'test@example.com'])
+        ->assertStatus(429);
+});
+
 it('redirects authenticated users away from forgot password', function (): void {
     $user = User::factory()->create();
 

@@ -145,3 +145,15 @@ it('allows keeping same email', function (): void {
     $response->assertRedirectToRoute('user-profile.edit')
         ->assertSessionDoesntHaveErrors();
 });
+
+it('throttles profile update requests', function (): void {
+    $user = User::factory()->create();
+
+    foreach (range(1, 6) as $ignored) {
+        $this->actingAs($user)->patchJson(route('user-profile.update'), []);
+    }
+
+    $this->actingAs($user)
+        ->patchJson(route('user-profile.update'), [])
+        ->assertStatus(429);
+});
