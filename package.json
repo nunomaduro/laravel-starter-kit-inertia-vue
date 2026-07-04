@@ -28,7 +28,7 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "laravel-vite-plugin": "^3.0.1",
-        "lucide-vue-next": "^1.0.0",
+        "@lucide/vue": "^1.23.0",
         "reka-ui": "^2.9.6",
         "tailwind-merge": "^3.5.0",
         "tailwindcss": "^4.2.2",
