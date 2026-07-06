@@ -116,4 +116,10 @@ it('fails with invalid email', function (string $email): void {
     'user@localdomain',
     'user@sub.-domain.com',
     '𝓊𝓃𝒾𝒸ℴ𝒹ℯ@𝒹ℴ𝓂𝒶𝒾𝓃.𝒸ℴ𝓂',
+
+    // Valid email embedded in surrounding text or with trailing data
+    'hello simple@example.com world',
+    'simple@example.com trailing',
+    'leading simple@example.com',
+    "simple@example.com\ninjected",
 ]);
