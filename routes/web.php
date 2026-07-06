@@ -21,12 +21,16 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
 Route::middleware('auth')->group(function (): void {
     // User...
-    Route::delete('user', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::delete('user', [UserController::class, 'destroy'])
+        ->middleware('throttle:6,1')
+        ->name('user.destroy');
 
     // User Profile...
     Route::redirect('settings', '/settings/profile');
     Route::get('settings/profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
-    Route::patch('settings/profile', [UserProfileController::class, 'update'])->name('user-profile.update');
+    Route::patch('settings/profile', [UserProfileController::class, 'update'])
+        ->middleware('throttle:6,1')
+        ->name('user-profile.update');
 
     // User Password...
     Route::get('settings/password', [UserPasswordController::class, 'edit'])->name('password.edit');
@@ -47,6 +51,7 @@ Route::middleware('guest')->group(function (): void {
     Route::get('register', [UserController::class, 'create'])
         ->name('register');
     Route::post('register', [UserController::class, 'store'])
+        ->middleware('throttle:6,1')
         ->name('register.store');
 
     // User Password...
@@ -59,6 +64,7 @@ Route::middleware('guest')->group(function (): void {
     Route::get('forgot-password', [UserEmailResetNotificationController::class, 'create'])
         ->name('password.request');
     Route::post('forgot-password', [UserEmailResetNotificationController::class, 'store'])
+        ->middleware('throttle:6,1')
         ->name('password.email');
 
     // Session...
