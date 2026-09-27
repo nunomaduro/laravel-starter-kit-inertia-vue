@@ -11,12 +11,22 @@ import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { edit } from '@/routes/password';
 import type { BreadcrumbItem } from '@/types';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Password settings',
-        href: edit(),
-    },
-];
+defineOptions({
+    layout: [
+        [
+            AppLayout,
+            {
+                breadcrumbs: [
+                    {
+                        title: 'Password settings',
+                        href: edit(),
+                    },
+                ] satisfies BreadcrumbItem[],
+            },
+        ],
+        SettingsLayout,
+    ],
+});
 
 defineProps<{
     passwordRules: string;
@@ -24,83 +34,77 @@ defineProps<{
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Password settings" />
+    <Head title="Password settings" />
 
-        <h1 class="sr-only">Password settings</h1>
+    <h1 class="sr-only">Password settings</h1>
 
-        <SettingsLayout>
-            <div class="space-y-6">
-                <Heading
-                    variant="small"
-                    title="Update password"
-                    description="Ensure your account is using a long, random password to stay secure"
+    <div class="space-y-6">
+        <Heading
+            variant="small"
+            title="Update password"
+            description="Ensure your account is using a long, random password to stay secure"
+        />
+
+        <Form
+            v-bind="PasswordController.update.form()"
+            :options="{
+                preserveScroll: true,
+            }"
+            reset-on-success
+            :reset-on-error="[
+                'password',
+                'password_confirmation',
+                'current_password',
+            ]"
+            class="space-y-6"
+            v-slot="{ errors, processing }"
+        >
+            <div class="grid gap-2">
+                <Label for="current_password">Current password</Label>
+                <PasswordInput
+                    id="current_password"
+                    name="current_password"
+                    class="mt-1 block w-full"
+                    autocomplete="current-password"
+                    placeholder="Current password"
                 />
-
-                <Form
-                    v-bind="PasswordController.update.form()"
-                    :options="{
-                        preserveScroll: true,
-                    }"
-                    reset-on-success
-                    :reset-on-error="[
-                        'password',
-                        'password_confirmation',
-                        'current_password',
-                    ]"
-                    class="space-y-6"
-                    v-slot="{ errors, processing }"
-                >
-                    <div class="grid gap-2">
-                        <Label for="current_password">Current password</Label>
-                        <PasswordInput
-                            id="current_password"
-                            name="current_password"
-                            class="mt-1 block w-full"
-                            autocomplete="current-password"
-                            placeholder="Current password"
-                        />
-                        <InputError :message="errors.current_password" />
-                    </div>
-
-                    <div class="grid gap-2">
-                        <Label for="password">New password</Label>
-                        <PasswordInput
-                            id="password"
-                            name="password"
-                            :passwordrules="passwordRules"
-                            class="mt-1 block w-full"
-                            autocomplete="new-password"
-                            placeholder="New password"
-                        />
-                        <InputError :message="errors.password" />
-                    </div>
-
-                    <div class="grid gap-2">
-                        <Label for="password_confirmation"
-                            >Confirm password</Label
-                        >
-                        <PasswordInput
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            :passwordrules="passwordRules"
-                            class="mt-1 block w-full"
-                            autocomplete="new-password"
-                            placeholder="Confirm password"
-                        />
-                        <InputError :message="errors.password_confirmation" />
-                    </div>
-
-                    <div class="flex items-center gap-4">
-                        <Button
-                            :disabled="processing"
-                            data-test="update-password-button"
-                        >
-                            Save password
-                        </Button>
-                    </div>
-                </Form>
+                <InputError :message="errors.current_password" />
             </div>
-        </SettingsLayout>
-    </AppLayout>
+
+            <div class="grid gap-2">
+                <Label for="password">New password</Label>
+                <PasswordInput
+                    id="password"
+                    name="password"
+                    :passwordrules="passwordRules"
+                    class="mt-1 block w-full"
+                    autocomplete="new-password"
+                    placeholder="New password"
+                />
+                <InputError :message="errors.password" />
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="password_confirmation">Confirm password</Label>
+                <PasswordInput
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    :passwordrules="passwordRules"
+                    class="mt-1 block w-full"
+                    autocomplete="new-password"
+                    placeholder="Confirm password"
+                />
+                <InputError :message="errors.password_confirmation" />
+            </div>
+
+            <div class="flex items-center gap-4">
+                <Button
+                    :disabled="processing"
+                    data-test="update-password-button"
+                >
+                    Save password
+                </Button>
+            </div>
+        </Form>
+    </div>
 </template>

@@ -7,6 +7,23 @@ import { index } from '@/routes/user-passkey';
 import type { BreadcrumbItem } from '@/types';
 import type { Passkey } from '@/types/auth';
 
+defineOptions({
+    layout: [
+        [
+            AppLayout,
+            {
+                breadcrumbs: [
+                    {
+                        title: 'Passkeys',
+                        href: index.url(),
+                    },
+                ] satisfies BreadcrumbItem[],
+            },
+        ],
+        SettingsLayout,
+    ],
+});
+
 type Props = {
     canManagePasskeys?: boolean;
     passkeys?: Passkey[];
@@ -16,24 +33,13 @@ withDefaults(defineProps<Props>(), {
     canManagePasskeys: false,
     passkeys: () => [],
 });
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Passkeys',
-        href: index.url(),
-    },
-];
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Passkeys" />
+    <Head title="Passkeys" />
 
-        <SettingsLayout>
-            <ManagePasskeys
-                :can-manage-passkeys="canManagePasskeys"
-                :passkeys="passkeys"
-            />
-        </SettingsLayout>
-    </AppLayout>
+    <ManagePasskeys
+        :can-manage-passkeys="canManagePasskeys"
+        :passkeys="passkeys"
+    />
 </template>
