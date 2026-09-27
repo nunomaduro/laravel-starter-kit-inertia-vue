@@ -13,6 +13,7 @@ import { update } from '@/routes/password';
 const props = defineProps<{
     token: string;
     email: string;
+    passwordRules: string;
 }>();
 
 const inputEmail = ref(props.email);
@@ -51,6 +52,7 @@ const inputEmail = ref(props.email);
                     <PasswordInput
                         id="password"
                         name="password"
+                        :passwordrules="passwordRules"
                         autocomplete="new-password"
                         class="mt-1 block w-full"
                         autofocus
@@ -66,6 +68,7 @@ const inputEmail = ref(props.email);
                     <PasswordInput
                         id="password_confirmation"
                         name="password_confirmation"
+                        :passwordrules="passwordRules"
                         autocomplete="new-password"
                         class="mt-1 block w-full"
                         placeholder="Confirm password"

@@ -10,6 +10,10 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
+
+defineProps<{
+    passwordRules: string;
+}>();
 </script>
 
 <template>
@@ -63,6 +67,7 @@ import { store } from '@/routes/register';
                         :tabindex="3"
                         autocomplete="new-password"
                         name="password"
+                        :passwordrules="passwordRules"
                         placeholder="Password"
                     />
                     <InputError :message="errors.password" />
@@ -76,6 +81,7 @@ import { store } from '@/routes/register';
                         :tabindex="4"
                         autocomplete="new-password"
                         name="password_confirmation"
+                        :passwordrules="passwordRules"
                         placeholder="Confirm password"
                     />
                     <InputError :message="errors.password_confirmation" />

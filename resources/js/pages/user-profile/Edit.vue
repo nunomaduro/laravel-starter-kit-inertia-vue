@@ -15,7 +15,6 @@ import { send } from '@/routes/verification';
 import type { BreadcrumbItem } from '@/types';
 
 type Props = {
-    mustVerifyEmail: boolean;
     status?: string;
 };
 
@@ -80,7 +79,7 @@ const user = computed(() => page.props.auth.user);
                         <InputError class="mt-2" :message="errors.email" />
                     </div>
 
-                    <div v-if="mustVerifyEmail && !user.email_verified_at">
+                    <div v-if="!user.email_verified_at">
                         <p class="-mt-4 text-sm text-muted-foreground">
                             Your email address is unverified.
                             <Link

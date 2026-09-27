@@ -17,6 +17,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: edit(),
     },
 ];
+
+defineProps<{
+    passwordRules: string;
+}>();
 </script>
 
 <template>
@@ -64,6 +68,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <PasswordInput
                             id="password"
                             name="password"
+                            :passwordrules="passwordRules"
                             class="mt-1 block w-full"
                             autocomplete="new-password"
                             placeholder="New password"
@@ -78,6 +83,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <PasswordInput
                             id="password_confirmation"
                             name="password_confirmation"
+                            :passwordrules="passwordRules"
                             class="mt-1 block w-full"
                             autocomplete="new-password"
                             placeholder="Confirm password"
