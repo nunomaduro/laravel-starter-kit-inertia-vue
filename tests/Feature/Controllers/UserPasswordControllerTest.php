@@ -146,7 +146,8 @@ it('may update password', function (): void {
             'password_confirmation' => 'new-password',
         ]);
 
-    $response->assertRedirectToRoute('password.edit');
+    $response->assertRedirectToRoute('password.edit')
+        ->assertInertiaFlash('toast', ['type' => 'success', 'message' => __('Password updated.')]);
 
     expect(Hash::check('new-password', $user->refresh()->password))->toBeTrue();
 });

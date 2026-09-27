@@ -4,6 +4,7 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import '../css/app.css';
 import { initializeTheme } from '@/composables/useAppearance';
+import { initializeFlashToast } from '@/lib/flashToast';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -26,3 +27,6 @@ void createInertiaApp({
 
 // This will set light / dark mode on page load...
 initializeTheme();
+
+// This will listen for flash toast data from the server...
+initializeFlashToast();
