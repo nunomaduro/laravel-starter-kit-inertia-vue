@@ -50,6 +50,11 @@ export default defineConfig({
             'resources/js/wayfinder/*',
         ],
     },
+    server: {
+        watch: {
+            ignored: ['**/storage/framework/views/**'],
+        },
+    },
     plugins: [
         laravel({
             input: ['resources/js/app.ts'],
