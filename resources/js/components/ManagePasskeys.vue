@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { router } from '@inertiajs/vue3';
-import { KeyRound } from 'lucide-vue-next';
+import { KeyRound } from '@lucide/vue';
 import { destroy } from '@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController';
 import Heading from '@/components/Heading.vue';
 import PasskeyItem from '@/components/PasskeyItem.vue';
